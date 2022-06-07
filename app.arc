@@ -1,5 +1,5 @@
 @app
-dashboard-a5e9
+csfs-dashboard-a5e9
 
 @http
 /*
