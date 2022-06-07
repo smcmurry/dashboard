@@ -7,7 +7,7 @@ export type Password = { password: string };
 
 export async function getUserById(id: User["id"]): Promise<User | null> {
   const db = await arc.tables();
-  const result = await db.user.query({
+  const result = await db.csfsuser.query({
     KeyConditionExpression: "pk = :pk",
     ExpressionAttributeValues: { ":pk": id },
   });
@@ -23,7 +23,7 @@ export async function getUserByEmail(email: User["email"]) {
 
 async function getUserPasswordByEmail(email: User["email"]) {
   const db = await arc.tables();
-  const result = await db.password.query({
+  const result = await db.csfspassword.query({
     KeyConditionExpression: "pk = :pk",
     ExpressionAttributeValues: { ":pk": `email#${email}` },
   });
@@ -40,12 +40,12 @@ export async function createUser(
 ) {
   const hashedPassword = await bcrypt.hash(password, 10);
   const db = await arc.tables();
-  await db.password.put({
+  await db.csfspassword.put({
     pk: `email#${email}`,
     password: hashedPassword,
   });
 
-  await db.user.put({
+  await db.csfsuser.put({
     pk: `email#${email}`,
     email,
   });
@@ -58,8 +58,8 @@ export async function createUser(
 
 export async function deleteUser(email: User["email"]) {
   const db = await arc.tables();
-  await db.password.delete({ pk: `email#${email}` });
-  await db.user.delete({ pk: `email#${email}` });
+  await db.csfspassword.delete({ pk: `email#${email}` });
+  await db.csfsuser.delete({ pk: `email#${email}` });
 }
 
 export async function verifyLogin(

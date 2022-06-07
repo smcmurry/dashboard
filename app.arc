@@ -9,13 +9,13 @@ csfs-dashboard-a5e9
 @static
 
 @tables
-csfs-user
+csfsuser
   pk *String
 
-csfs-password
+csfspassword
   pk *String # userId
 
-csfs-note
+csfsnote
   pk *String  # userId
   sk **String # noteId
 

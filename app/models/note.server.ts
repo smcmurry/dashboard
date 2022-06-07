@@ -24,7 +24,7 @@ export async function getNote({
 }: Pick<Note, "id" | "userId">): Promise<Note | null> {
   const db = await arc.tables();
 
-  const result = await await db.note.get({ pk: userId, sk: idToSk(id) });
+  const result = await await db.csfsnote.get({ pk: userId, sk: idToSk(id) });
 
   if (result) {
     return {
@@ -42,7 +42,7 @@ export async function getNoteListItems({
 }: Pick<Note, "userId">): Promise<Array<Pick<Note, "id" | "title">>> {
   const db = await arc.tables();
 
-  const result = await db.note.query({
+  const result = await db.csfsnote.query({
     KeyConditionExpression: "pk = :pk",
     ExpressionAttributeValues: { ":pk": userId },
   });
@@ -60,7 +60,7 @@ export async function createNote({
 }: Pick<Note, "body" | "title" | "userId">): Promise<Note> {
   const db = await arc.tables();
 
-  const result = await db.note.put({
+  const result = await db.csfsnote.put({
     pk: userId,
     sk: idToSk(cuid()),
     title: title,
@@ -76,5 +76,5 @@ export async function createNote({
 
 export async function deleteNote({ id, userId }: Pick<Note, "id" | "userId">) {
   const db = await arc.tables();
-  return db.note.delete({ pk: userId, sk: idToSk(id) });
+  return db.csfsnote.delete({ pk: userId, sk: idToSk(id) });
 }
