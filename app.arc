@@ -21,3 +21,6 @@ csfsnote
 
 @aws
   region us-east-1
+
+@plugins
+  extend-arc
