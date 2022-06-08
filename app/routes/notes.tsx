@@ -5,10 +5,15 @@ import { Form, Link, NavLink, Outlet, useLoaderData } from "@remix-run/react";
 import { requireUserId } from "~/session.server";
 import { useUser } from "~/utils";
 import { getNoteListItems } from "~/models/note.server";
+import { modelData } from "~/models/shelf.server";
 
 type LoaderData = {
   noteListItems: Awaited<ReturnType<typeof getNoteListItems>>;
 };
+
+type ModelLoaderData = {
+  shelfItems: Awaited<ReturnType<typeof modelData>>;
+}
 
 export const loader: LoaderFunction = async ({ request }) => {
   const userId = await requireUserId(request);
@@ -19,6 +24,8 @@ export const loader: LoaderFunction = async ({ request }) => {
 export default function NotesPage() {
   const data = useLoaderData() as LoaderData;
   const user = useUser();
+  const shelfData = useLoaderData() as ModelLoaderData;
+  console.log(shelfData);
 
   return (
     <div className="flex h-full min-h-screen flex-col">
