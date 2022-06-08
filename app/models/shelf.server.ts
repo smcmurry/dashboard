@@ -10,13 +10,9 @@ export type Frame = {
   pose: string;
 };
 
-type NoteItem = {
-  uuid: Frame["uuid"];
-};
-
 export async function modelData() {
     const db = await arc.tables();
-    const table = await db.csfsposturedata.scan({});
+    const table = await db.csfsposturedata.scan({FilterExpression: "objectId = :objectId", ExpressionAttributeValues: {":objectId": 1}});
     console.log(table);
     return null;
 }
