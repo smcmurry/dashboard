@@ -15,6 +15,9 @@ csfsuser
 csfspassword
   pk *String # userId
 
+csfsposturedata
+  uuid *String
+
 csfsnote
   pk *String  # userId
   sk **String # noteId
