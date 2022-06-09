@@ -12,8 +12,8 @@ type LoaderData = {
 
 export const loader: LoaderFunction = async ({ request }) => {
     //const userId = await requireUserId(request);
-    const objectId = "1";
-    const shelfData = await getShelfData({ objectId });
+    const object_id = "1";
+    const shelfData = await getShelfData({ object_id });
     return json<LoaderData>({ shelfData });
 };
 
@@ -40,6 +40,11 @@ export default function ShelvesPage() {
           <main className="flex h-full bg-white">
             <div className="h-full w-80 border-r bg-gray-50">
               <li>
+                {data.shelfData.map((shelf) => (
+                    <ol key= {shelf.uuid}>
+                        {shelf.pose}
+                    </ol>
+                ))}
                 <p>shelf 1</p>
               </li>
             </div>
@@ -48,8 +53,11 @@ export default function ShelvesPage() {
                 <div>
                     <ol>
                         {data.shelfData.map((shelf) => (
-                            <li key={shelf.objectId}>
+                            <li key={shelf.object_id}>
                                 {shelf.pose}
+                                {shelf.object_id}
+                                {shelf.timestamp}
+                                {shelf.uuid}
                             </li>
                         ))
                         }
