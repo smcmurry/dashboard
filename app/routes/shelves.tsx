@@ -51,7 +51,8 @@ export default function ShelvesPage() {
                             <li key={shelf.objectId}>
                                 {shelf.pose}
                             </li>
-                        ))}
+                        ))
+                        }
                     </ol>
                 </div>
             </div>
