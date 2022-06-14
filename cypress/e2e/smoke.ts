@@ -1,7 +1,7 @@
 import faker from "@faker-js/faker";
 
 describe("smoke tests", () => {
-  it("should allow you to register and login", () => {
+  /*it("should allow you to register and login", () => {
     const loginForm = {
       email: `${faker.internet.userName()}@example.com`,
       password: faker.internet.password(),
@@ -18,7 +18,7 @@ describe("smoke tests", () => {
     cy.findByRole("link", { name: /notes/i }).click();
     cy.findByRole("button", { name: /logout/i }).click();
     cy.findByRole("link", { name: /log in/i });
-  });
+  });*/
 
   /*it("should allow you to make a note", () => {
     const testNote = {
