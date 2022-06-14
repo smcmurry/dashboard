@@ -21,7 +21,7 @@ export default function ShelvesPage() {
     const data = useLoaderData() as LoaderData;
     var total_customers = 0
     var total_interactions = 0
-    var percentage_interactions = 0.0
+    var avg_interactions_per_person = 0.0
     var total_customer_time_spent = 0
     var avg_time_spent = 0
     var num_frames = 0
@@ -44,7 +44,7 @@ export default function ShelvesPage() {
         //total_customer_time_spent += data.shelfData[i].timestamp
         num_frames++
     }
-    percentage_interactions = total_interactions / total_customers
+    avg_interactions_per_person = total_interactions / total_customers
 
     return (
         <div className="flex h-full min-h-screen flex-col">
@@ -76,7 +76,7 @@ export default function ShelvesPage() {
                     <ol>
                         <p>Total Customers: </p>{total_customers}
                         <p>Total Interactions: </p>{total_interactions}
-                        <p>Percentage of people that interact: </p>{percentage_interactions}
+                        <p>Average Interactions per Person: </p>{avg_interactions_per_person}
                     </ol>
                 </div>
             </div>
