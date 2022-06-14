@@ -12,13 +12,39 @@ type LoaderData = {
 
 export const loader: LoaderFunction = async ({ request }) => {
     //const userId = await requireUserId(request);
-    const object_id = "1";
-    const shelfData = await getShelfData({ object_id });
+    const shelf_id = "1";
+    const shelfData = await getShelfData({ shelf_id });
     return json<LoaderData>({ shelfData });
 };
 
 export default function ShelvesPage() {
     const data = useLoaderData() as LoaderData;
+    var total_customers = 0
+    var total_interactions = 0
+    var percentage_interactions = 0.0
+    var total_customer_time_spent = 0
+    var avg_time_spent = 0
+    var num_frames = 0
+    var people = [""]
+    for (var i = 0; i < data.shelfData.length; i++) {
+        var unique = true
+        for (var j = 0; j < people.length; j++) {
+            if (data.shelfData[i].object_id + " " + data.shelfData[i].session_id == people[j]) {
+                unique = false
+                break
+            }
+        }
+        if (unique) {
+            people.push(data.shelfData[i].object_id + " " + data.shelfData[i].session_id)
+            total_customers++
+        }
+        if (data.shelfData[i].pose == "Reaching Left" || data.shelfData[i].pose == "Reaching Right") {
+            total_interactions++
+        }
+        //total_customer_time_spent += data.shelfData[i].timestamp
+        num_frames++
+    }
+    percentage_interactions = total_interactions / total_customers
 
     return (
         <div className="flex h-full min-h-screen flex-col">
@@ -40,27 +66,17 @@ export default function ShelvesPage() {
           <main className="flex h-full bg-white">
             <div className="h-full w-80 border-r bg-gray-50">
               <li>
-                {data.shelfData.map((shelf) => (
-                    <ol key= {shelf.uuid}>
-                        {shelf.pose}
-                    </ol>
-                ))}
                 <p>shelf 1</p>
+                <p>shelf 2</p>
               </li>
             </div>
     
             <div className="flex-1 p-6">
                 <div>
                     <ol>
-                        {data.shelfData.map((shelf) => (
-                            <li key={shelf.object_id}>
-                                {shelf.pose}
-                                {shelf.object_id}
-                                {shelf.timestamp}
-                                {shelf.uuid}
-                            </li>
-                        ))
-                        }
+                        <p>Total Customers: </p>{total_customers}
+                        <p>Total Interactions: </p>{total_interactions}
+                        <p>Percentage of people that interact: </p>{percentage_interactions}
                     </ol>
                 </div>
             </div>
